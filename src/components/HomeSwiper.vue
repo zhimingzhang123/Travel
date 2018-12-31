@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper">
-    <swiper :options="swiperOption">
+    <swiper :options="swiperOption" v-if="showSwiper">
       <!-- slides -->
 
-      <swiper-slide v-for="item of swperList" :key="item.id">
+      <swiper-slide v-for="item of swiperList" :key="item.id">
         <img class="swiper-img" :src="item.imgUrl" alt="">
       </swiper-slide>
 
@@ -21,18 +21,17 @@
         swiperOption: {
           pagination: ".swiper-pagination",
           // loop: true,
-
         },
-        swperList: [
-          {
-            id: '01',
-            imgUrl: require('../../src/assets/styles/image/1.jpg')
-          },
-          {
-            id: "02",
-            imgUrl: require('../../src/assets/styles/image/2.jpg')
-          }
-        ]
+      }
+    },
+    props: {
+      swiperList: {
+        type: Array
+      }
+    },
+    computed: {
+      showSwiper() {
+        return this.swiperList.length
       }
     }
   }
