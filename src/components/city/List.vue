@@ -57,7 +57,6 @@
       letter: String
     },
     mounted() {
-      console.log(this.$refs.wrapper)
       this.scroll = new BScroll(this.$refs.wrapper)
     },
     watch: {

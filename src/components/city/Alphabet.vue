@@ -22,8 +22,14 @@
     },
     data() {
       return {
-        touchStatus: false
+        touchStatus: false,
+        startY: 0,
+        timer: null
       }
+    },
+    updated() {
+      this.startY = this.$refs['A'][0].offsetTop // 获取A字母距离蓝色下沿的位置
+      console.log(this.startY)
     },
     methods: {
       handleLetterClick(e) {
@@ -34,12 +40,16 @@
       },
       handleTouchMove(e) {
         if (this.touchStatus) {
-          const startY = this.$refs['A'][0].offsetTop // 获取A字母距离蓝色下沿的位置
-          const touchY = e.touches[0].clientY - 79 // 获取手指的位置到蓝色下沿的位置
-          const index = Math.floor((touchY - startY) / 20) // 获取字母的下标
-          if (index >= 0 && this.letters.length) {
-            this.$emit('change', this.letters[index])
+          if (this.timer) {
+            clearTimeout(this.timer)
           }
+          this.timer = setTimeout(() => {
+            const touchY = e.touches[0].clientY - 79 // 获取手指的位置到蓝色下沿的位置
+            const index = Math.floor((touchY - this.startY) / 20) // 获取字母的下标
+            if (index >= 0 && this.letters.length) {
+              this.$emit('change', this.letters[index])
+            }
+          }, 16)
         }
       },
       hanldeTouchEnd() {
