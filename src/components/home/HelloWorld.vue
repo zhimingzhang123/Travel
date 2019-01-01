@@ -10,6 +10,7 @@
 
 <script>
   import axios from 'axios'
+  import { mapState } from 'vuex'
 
   import HomeHeader from './Header'
   import HomeSwiper from './HomeSwiper'
@@ -25,7 +26,8 @@
         swiperList: [],
         iconList: [],
         recommendList: [],
-        weekendList: []
+        weekendList: [],
+        lastCity: ''
 
       }
     },
@@ -37,11 +39,12 @@
       Weekend
     },
     mounted() {
+      this.lastCity = this.city
       this.getHomeInfo()
     },
     methods: {
       getHomeInfo() {
-        axios.get('/api/index.json')
+        axios.get('/api/index.json?city=' + this.city)
           .then(this.getHomeInfoSucc)
       },
       getHomeInfoSucc(res) {
@@ -54,7 +57,17 @@
           this.recommendList = data.recommendList
           this.weekendList = data.weekendList
         }
-      },
+      }
+    },
+    computed: {
+      ...mapState(['city'])
+    },
+    activated() {
+      // 判断当前城市和上次城市是否相同
+      if(this.lastCity !== this.city) {
+        this.lastCity = this.city
+        this.getHomeInfo()
+      }
 
     }
   }
