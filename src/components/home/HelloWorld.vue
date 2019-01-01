@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <home-header :city="city"></home-header>
+    <home-header></home-header>
     <home-swiper :swiperList="swiperList"></home-swiper>
     <icons :iconList="iconList"></icons>
     <recommend :recommendList="recommendList"></recommend>
@@ -21,7 +21,7 @@
     name: '',
     data() {
       return {
-        city: '',
+        // city: '',
         swiperList: [],
         iconList: [],
         recommendList: [],
@@ -48,7 +48,7 @@
         res = res.data
         if(res.ret && res.data) {
           const data = res.data
-          this.city = data.city
+          // this.city = data.city
           this.swiperList = data.swiperList
           this.iconList = data.iconList
           this.recommendList = data.recommendList

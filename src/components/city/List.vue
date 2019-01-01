@@ -6,17 +6,7 @@
         <div class="btn-list">
           <div class="btn-wrapper">
             <div class="btn">
-              北京
-            </div>
-          </div>
-          <div class="btn-wrapper">
-            <div class="btn">
-              北京
-            </div>
-          </div>
-          <div class="btn-wrapper">
-            <div class="btn">
-              北京
+              {{city}}
             </div>
           </div>
         </div>
@@ -24,7 +14,11 @@
       <div class="area">
         <div class="title border-topbottom">热门城市</div>
         <div class="btn-list">
-          <div class="btn-wrapper" v-for="city in hotCities" :key="city.id">
+          <div class="btn-wrapper"
+               v-for="city in hotCities"
+               :key="city.id"
+               @click="handleClick(city.name)"
+          >
             <div class="btn">
               {{city.name}}
             </div>
@@ -36,9 +30,14 @@
            :key="key"
            :ref="key"
       >
-        <div class="title border-bottom" >{{key}}</div>
+        <div class="title border-bottom">{{key}}</div>
         <div class="item-list">
-          <div class="item border-bottom" v-for="addr of city" :key="addr.id">{{addr.name}}</div>
+          <div
+            class="item border-bottom"
+            v-for="addr of city"
+            :key="addr.id"
+            @click="handleClick(addr.name)"
+          >{{addr.name}}</div>
         </div>
       </div>
     </div>
@@ -46,6 +45,7 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex'
   import BScroll from 'better-scroll'
   let wrapper = document.querySelector('.wrapper')
 
@@ -61,12 +61,25 @@
     },
     watch: {
       letter() {
-        if(this.letter){
+        if (this.letter) {
           const element = this.$refs[this.letter][0]
           this.scroll.scrollToElement(element)
         }
       }
-    }
+    },
+    methods: {
+      ...mapMutations(['changeState']),
+
+      handleClick(city) {
+        this.changeState(city)
+        this.$router.push('/')
+      }
+    },
+    computed: {
+      ...mapState({
+        city: 'city'
+      })
+    },
   }
 </script>
 
@@ -76,11 +89,13 @@
       border-color #ccc
     &:after
       border-color #ccc
+
   .border-bottom
     &:before
       border-color #ccc
     &:after
       border-color #ccc
+
   .list
     overflow hidden
     position absolute

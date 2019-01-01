@@ -3,9 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from './store'
+
+
 import fastClick from 'fastclick'
 import VueAwesomeSwiper from 'vue-awesome-swiper' // 快速实现轮播图
-
 import './assets/styles/reset.css' // 导入reset.css
 import './assets/styles/border.css' // 解决手机1px边框的问题
 import './assets/styles/iconfont.css' // 引入icon
@@ -19,6 +21,7 @@ Vue.use(VueAwesomeSwiper)
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
