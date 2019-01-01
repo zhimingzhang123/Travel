@@ -25,6 +25,9 @@ export default new Router({
       name: 'Detail',
       component: Detail
     }
-
-  ]
+  ],
+  // 每次路由进行切换的时候，都回到页面最开始的位置
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })

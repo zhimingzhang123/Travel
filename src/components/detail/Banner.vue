@@ -2,13 +2,17 @@
   <div>
     <div class="banner" @click="handleBannerClick">
       <img class="banner-img"
-           src="http://img1.qunarzz.com/sight/p0/1712/95/95f38f28a6ff19cba3.img.jpg_600x330_682f736a.jpg">
+           :src="bannerImg">
       <div class="banner-info">
-        <div class="banner-title">水奥雪世界</div>
-        <div class="banner-number">55</div>
+        <div class="banner-title">{{this.sightName}}</div>
+        <div class="banner-number">{{this.gallaryImgs.length}}</div>
       </div>
     </div>
-    <gallary :imgs="imgs" v-show="showGallary" @close="handeGallaryClose"></gallary>
+    <gallary
+      :imgs="gallaryImgs"
+      v-show="showGallary"
+      @close="handeGallaryClose"
+    ></gallary>
   </div>
 </template>
 
@@ -17,9 +21,14 @@
 
   export default {
     name: "",
+    props: {
+      sightName: String,
+      bannerImg: String,
+      gallaryImgs: Array
+    },
     data() {
       return {
-        imgs: ['http://img1.qunarzz.com/sight/p0/1712/95/95f38f28a6ff19cba3.img.jpg_600x330_682f736a.jpg'],
+        // imgs: ['http://img1.qunarzz.com/sight/p0/1712/95/95f38f28a6ff19cba3.img.jpg_600x330_682f736a.jpg'],
         showGallary: false
       }
     },
