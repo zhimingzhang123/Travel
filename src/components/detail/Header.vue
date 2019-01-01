@@ -33,6 +33,9 @@
     activated() {
       window.addEventListener('scroll', this.handleScroll) // 获取当前位置距离顶部的距离
     },
+    deactivated() {
+      window.removeEventListener('scroll', this.handleScroll) // 解除window事件
+    },
     methods: {
       // 控制详情导航栏显示,透明度渐变
       handleScroll() {
